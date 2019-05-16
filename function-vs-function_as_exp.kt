@@ -49,11 +49,11 @@ fun max (a: Int, b : Int):Int =            // NOTE : here we have used the equal
         if (a>b)
         {
             println("finding greater...")
-            a
+            a                              // a will be returned
         }
         else {
             println("finding greater...")
-            b
+            b                              // b will be returned 
         }
-
+// always the last element of the block is returned and as in above example its a  &  b . 
 // */
