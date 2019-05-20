@@ -409,6 +409,27 @@ fun main()
 
 
 }
+13. Late initialization is allowed in kotlin 
+-------------------------------------------------------------------
+With the help of the keyword "lateinit" we can get the variable initialized at a later stage but surely before using it.  
+
+fun main()
+{
+    val obj= myClass()
+    obj.name = "Aman"
+    println(obj.name)
+    println(obj.myFun())
+
+}
+class myClass
+{
+    lateinit var name: String  // here we are telling the compiler that we will initialixe this compiler later on before using it.
+
+    fun myFun()
+    {
+        println("My name is $name")
+    }
+}
 
 
 
