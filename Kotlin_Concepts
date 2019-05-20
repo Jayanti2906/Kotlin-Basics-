@@ -1,0 +1,414 @@
+Basic Syntax and Hello world :--
+---------------------------------------
+
+fun main()
+{
+
+    println("Hello World")
+
+
+ /*    var myVariable= "Everyone"  // declaring and initialization of a string string variable
+
+    var number = 10+30;
+
+    // variable myVariable and number are constants ie immutable where as mystring and newstring are mutable
+
+
+
+    var mystring: String // only declaring
+    mystring = "I am happy to see you all !"   // mystring value can be changed at a later stage
+
+    var newString:String = "Take Care"
+
+
+
+    println("Hello $myVariable")
+    println(mystring )
+    println(newString)
+
+         mystring = "Bye "
+         println(mystring )
+
+         */
+}
+
+
+2. Simple class and creating its object to access its members 
+--------------------------------------------------------------------------
+
+fun main()
+{
+
+    println ("enter your age : ")
+    val age= Integer.valueOf(readLine())
+    val obj = Person()
+    obj.eligibilty(age)
+}
+
+class Person{
+
+    fun eligibilty(age:Int)
+    {
+
+        if(age > 18)
+        {
+            println("You can vote")
+        }
+        else {
+            println("Sorry, you are not eligible to vote ")
+        }
+    }
+
+
+}
+
+3. Inheritence 
+------------------------
+
+// Inheritance in Kotlin
+
+
+// Not to forget the "open" key word to be used with the super class
+// NOTE: For the abstract classes , we do not need to use the "open" keyword
+
+open class SuperClass     // As the name suggests, it's a super class
+{
+    var variable1: String= "I am super "
+}
+open class SubClass : SuperClass()   // As the name suggests, it's a subclass which inherits the super class
+{
+    var variable2: String=" I am a sub class"
+}
+open class SubclassSecond(var variable3: String = " I am the second subclass"): SubClass()
+{
+    //empty body
+}
+class Subclassthree: SubclassSecond()
+{
+    var variable4: String ="Hey I inherited the SubclassSecond "
+}
+
+fun main()
+{
+    var l1= SubClass()     // here the l1 is the object of the subclass
+    println(l1.variable1)   // we accessed the super class member with the sub class
+    println(l1.variable2)   // certainly we can access the subclass member with it's object l1 as well
+    println("------------------------------------------------------------------")
+
+    // multiple inheritance ....
+
+    var l2= SubclassSecond()  // object of SubclassSecond
+    println(l2.variable1)   // variable1  is  a member of super class which was inherited by SubClass and SubClass is inherited by Subclasstwo
+    // l2 is the object of Subclasstwo which which we are accessing the member of SuperClass
+    println(l2.variable2)
+    println(l2.variable3)
+
+    println("------------------------------------------------------------------")
+
+    var l3 = Subclassthree()
+    println(l3.variable3)
+
+
+
+}
+
+4. Overriding in Kotlin
+--------------------------------------------------------------
+
+
+open class A
+{
+    open fun food()
+    {
+        println("I love food ")
+    }
+
+
+}
+open class B:A()
+{
+    override fun food()
+    {
+        println (" I love to eat ice cream")
+    }
+
+}
+
+class C:B()
+{
+
+    override fun food()
+    {
+        super.food()   // access the food function in the immediate super class
+        println(" I love to eat chocolates")
+    }
+
+}
+fun main()
+{
+    var obj = A()
+    obj.food()
+
+    var obj1=C()
+    obj1.food()
+
+}
+
+
+
+5. Abstraction 
+---------------------------------
+
+Here we see a normal class which is declared open. We can inherit it and access its members creating objects. It has a function food() which can 
+be overridden in the subclass. (Note: Function food() is also marked open as we need to override it into its subclass. 
+
+open class A
+{
+    open fun food()
+    {
+        println("I love food ")
+    }
+
+
+}
+class B:A()
+{
+
+    override fun food()
+    {
+        super<A>.food()   // access the food function in the super class
+        println(" I love to eat chocolates")
+    }
+
+}
+fun main()
+{
+    var obj = A()
+    obj.food()
+
+    var obj1=B()
+    obj1.food()
+
+}
+
+
+//---------- continued ...
+
+Now we see how the abstract class is different from above. Here we have declared the class as abstract as it contains an abstract
+function. Any class which contains an abstract functions needs to be declared abstract. Here the function food() remains same as it was earlier.
+
+
+/*
+
+abstract class A             // a class containing abstract function must also be declared abstract
+{
+    abstract fun travel()    // abstract function should not contain body
+
+    open fun food()
+    {
+        println("I love food ")
+    }
+
+
+}
+class B:A()
+{
+    override fun travel()          // it is compulsory for the subclass to override the abstract function
+    {
+        // body
+        println ("I love to travel")
+    }
+    override fun food()
+    {
+        super.food()
+        println(" I love to eat chocolates")
+    }
+
+}
+fun main()
+{
+   // var obj = A()     //error : we cannot create an instance of an abstract class
+    var obj = B()
+    obj.food()
+    obj.travel()
+
+
+}
+*/
+
+6. Interface 
+---------------------------------------
+
+/*INTERFACE IN KOTLIN
+Whatever we define in an interface is open and abstract in nature
+so we need not write open or abstract keywords inside an interface
+In interface nothing is final */
+/* In Java 7, inheritance function declaration can’t have implementation.
+Hence those class who implements an interface, need to have all it’s function implemented.*/
+
+//In kotlin it is not necessary for all functions to be abstract ie we need not override all the functions present in the interface being implemented.
+//However, this is not the case with variables. All the variables in interface are abstract by default and needs to be inherited compulsorily
+
+//Example :--
+
+interface MyInterface {
+
+    abstract val test: Int   // variables are by default abstract
+
+    abstract fun example() : String     //  this function does not contain a body so it is abstract by default
+
+    fun hello(): String {                // it is not abstract
+       
+       println("Hello there!")
+        return ("HII")
+    }
+}
+// inheriting MyInterface
+
+class InterfaceImplementation  : MyInterface {
+
+    override val test: Int = 25   // test is must to be overridden
+    
+    override fun example() = "Lol"
+    
+    override fun hello() :String        // overriding in the true sense ( unlike in Java )
+    {
+        println("hey there")       // different from the previous body declared in the interface
+        return("Hii There !")
+    }
+7. Object 
+----------------------------------------
+
+fun main()
+{
+    //to access the members of "Add" object we do not need to create the objects of "Add"
+
+    Add.numbers(2,5)       //object_name.member_name
+    Add.decimals(2.5,8.5)  //object_name.member_name
+}
+
+//Infusion of static behaviour in the members of Add with the help of keyword "object"
+// in java, we used the keyword "static" for the same purpose
+
+object Add      //declared like a class
+{
+    fun numbers( n1:Int, n2:Int)
+    {
+        println(n1+n2)
+    }
+    fun decimals(d1:Double,d2:Double)
+    {
+        println(d1+d2)
+    }
+
+
+}
+
+8. Comapnion Object 
+----------------------------------------
+
+class CompTest
+{
+    var s =" I am not static as I am outside the companion object block"
+
+    companion object obj
+    {
+        var s1="I am static like variable "
+        
+        fun static ()    // here we have used "static" as the function name as there there is no "static" keyword in java
+        {
+            println("I am static like function")
+        }
+    }
+}
+fun main()
+{
+    var ob = CompTest() // object created of class CompTest
+    
+    println(ob.s)       // member outside the companion object are accessed using object
+
+    println(CompTest.s1)   // members inside the companion object are accessed directly like static members (class_name.member_name)
+    
+    println(CompTest.static())
+
+}
+
+9. Data Class 
+---------------------------------------
+
+//when "data" keyword is attached then class deals with the data only and obj1 & obj2 will be equal
+//when we remove the "data" key word, then we will see that obj1 and ibj2 are not equal
+// obj1 and obj2 are two different references containing same value or data
+
+
+
+fun main()
+{
+    var obj1 = Example(5,10)
+    var obj2= Example(5,10)
+
+    if (obj1== obj2) println("Equal")
+    else println("Not equal")
+
+    //println("obj1= $obj1")
+    //println("obj2= $obj2")
+
+}
+
+
+data class Example(var n1:Int, var n2:Int)  {}   // this class now deals with data only
+
+10. High level functions 
+-----------------------------------------------------------
+
+
+
+11. Lambda functions
+------------------------------------------------------------
+Here is a simple example to explain the working of the Lambda functions.
+
+
+fun main()
+{
+    var obj = Addition()
+    var result= obj.addn(5,10,{x,y->y+x}) // addn() is a high level function which takes lambda function as a parameter 
+    print(result)
+}
+class Addition
+{
+    fun addn(a:Int,b:Int,action:(Int,Int)->Int):Int
+    {
+        var res= action(a,b)
+        return res
+
+    }
+}
+
+
+12. Filter & Maps 
+----------------------------------------
+
+//Filter : Returns a list of all the elements matching the given condition
+
+//Map : Returns a loust after transforming all the elements as per the given criteria
+
+fun main()
+{
+    val mylist:List<Int> = listOf(2,3,4,5,6,7,8,9)
+    
+          // val snum:List<Int> = mylist.filter { x->x<6 }    // filter takes lambda function a parameter
+   
+    val snum:List<Int> =mylist.filter { it<6 }     // lambda using "it"
+    println (snum)
+
+    val cnum:List<Int> = mylist.map { x -> x * x * x }
+    println (cnum)
+
+    val tnum = mylist. all{ x -> x < 10}
+    if(tnum)  println(" all numbers are less then 10")
+
+
+}
+
+
+
